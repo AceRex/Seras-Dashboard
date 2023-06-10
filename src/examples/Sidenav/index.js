@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 // react-router-dom components
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -34,9 +34,10 @@ import {
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
+  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor, user } =
+    controller;
   const location = useLocation();
-  const collapseName = location.pathname.replace("/", "");
+  const collapseName = location.pathname.replace("/authentication/sign-in", "");
 
   let textColor = "white";
 
@@ -49,7 +50,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const closeSidenav = () => setMiniSidenav(dispatch, true);
 
   useEffect(() => {
-    // A function that sets the mini state of the sidenav.
     function handleMiniSidenav() {
       setMiniSidenav(dispatch, window.innerWidth < 1200);
       setTransparentSidenav(dispatch, window.innerWidth < 1200 ? false : transparentSidenav);
@@ -120,6 +120,23 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           }
         />
       );
+    } else if (type === "d-none") {
+      returnValue = (
+        <MDTypography
+          key={key}
+          color={textColor}
+          display="none"
+          variant="caption"
+          fontWeight="bold"
+          textTransform="uppercase"
+          pl={3}
+          mt={2}
+          mb={1}
+          ml={1}
+        >
+          {title}
+        </MDTypography>
+      );
     }
 
     return returnValue;
@@ -164,6 +181,19 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         }
       />
       <List>{renderRoutes}</List>
+      <MDBox p={2} mt="auto">
+        <MDButton
+          component="a"
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          variant="gradient"
+          color={sidenavColor}
+          fullWidth
+        >
+          Create a Judge
+        </MDButton>
+      </MDBox>
     </SidenavRoot>
   );
 }

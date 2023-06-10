@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -19,9 +19,17 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg2.png";
 
+import { useMaterialUIController, setUser } from "context";
+import { useEffect } from "react";
+
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
-
+  const [controller, dispatch] = useMaterialUIController();
+  const { user } = controller;
+  const navigate = useNavigate();
+  const UserExist = () => {
+    navigate("/dashboard"), setUser(dispatch, true);
+  };
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   return (
@@ -48,7 +56,7 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="secondary" fullWidth>
+              <MDButton variant="gradient" color="secondary" fullWidth onClick={UserExist}>
                 sign in
               </MDButton>
             </MDBox>
