@@ -1,9 +1,10 @@
-import { Icon, IconButton } from "@mui/material";
+import { Checkbox, Icon, IconButton } from "@mui/material";
 import MDBadge from "components/MDBadge";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 export const columns = [
+  { Header: " ", accessor: "select", width: "10%", align: "center" },
   { Header: "ID", accessor: "id", width: "10%", align: "center" },
   { Header: "Last edited", accessor: "last_edited", width: "10%", align: "center" },
   { Header: "Registrant", accessor: "registrant", width: "20%", align: "center" },
@@ -18,6 +19,7 @@ export const columns = [
 
 export const rows = [
   {
+    select: <Checkbox />,
     id: "090922282",
     last_edited: "10 Jun",
     registrant: "Are Oluwasegun Johnson",
@@ -46,6 +48,7 @@ export const rows = [
     ),
   },
   {
+    select: <Checkbox />,
     id: "090922282",
     last_edited: "10 Jun",
     registrant: "Are Oluwasegun Johnson",
@@ -73,4 +76,24 @@ export const rows = [
       </IconButton>
     ),
   },
+];
+
+export const statues = ["Draft", "Submitted", "Approved", "Rejected", "Resubmission Required"];
+
+export const categories = [
+  "Best Company",
+  "Best Team",
+  "Innovation of the year",
+  "Person of the year",
+  "People's choice award",
+];
+
+export const rounds = ["Public voting", "Judging"];
+
+export const tags = [
+  "Finalist",
+  "Gold Award",
+  "People's choice award",
+  "Silver Award",
+  "Bronze Award",
 ];

@@ -11,12 +11,44 @@ import { columns, rows } from "./data";
 import MDButton from "components/MDButton";
 import { Card, Icon } from "@mui/material";
 import DataTable from "examples/Tables/DataTable";
+import MDInput from "components/MDInput";
+import MultipleSelect from "components/MultiSelect";
+import { statues, categories, rounds, tags } from "./data";
 
 function Application() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Grid container spacing={6} pt={4}>
+      <Grid container spacing={2} pt={4}>
+        <Card>
+          <MDBox display="flex" p={1}>
+            <Grid item xs={12}>
+              <MDBox pr={1}>
+                <MultipleSelect placeholder="All Statuses" array={statues} />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12}>
+              <MDBox pr={1}>
+                {" "}
+                <MultipleSelect placeholder="All Categories" array={categories} />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12}>
+              <MDBox pr={1}>
+                {" "}
+                <MultipleSelect placeholder="All rounds" array={rounds} />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12}>
+              {" "}
+              <MDBox pr={1}>
+                <MultipleSelect placeholder="All tags" array={tags} />
+              </MDBox>
+            </Grid>
+          </MDBox>
+        </Card>
+      </Grid>
+      <Grid container spacing={2} pt={4}>
         <Grid item xs={12}>
           <Card>
             <MDBox display="flex" pl={4} pt={3}>
