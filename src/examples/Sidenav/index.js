@@ -137,6 +137,23 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           {title}
         </MDTypography>
       );
+    } else if (type === "children") {
+      returnValue = (
+        <MDTypography
+          key={key}
+          color={textColor}
+          display="none"
+          variant="caption"
+          fontWeight="bold"
+          textTransform="uppercase"
+          pl={3}
+          mt={2}
+          mb={1}
+          ml={1}
+        >
+          {title}
+        </MDTypography>
+      );
     }
 
     return returnValue;
