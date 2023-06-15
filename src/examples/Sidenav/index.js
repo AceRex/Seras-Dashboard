@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
@@ -24,6 +24,10 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
 
+import { makeStyles } from "@mui/styles";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+
 // Material Dashboard 2 React context
 import {
   useMaterialUIController,
@@ -31,6 +35,7 @@ import {
   setTransparentSidenav,
   setWhiteSidenav,
 } from "context";
+import { Collapse } from "@mui/material";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
@@ -68,9 +73,22 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
+  const useStyles = makeStyles((theme) => ({
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
+  }));
+
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
+
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+      setOpen(!open);
+    };
 
     if (type === "collapse") {
       returnValue = href ? (
@@ -137,22 +155,31 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           {title}
         </MDTypography>
       );
-    } else if (type === "children") {
+    } else if (type === "nested") {
       returnValue = (
-        <MDTypography
+        <List
+          href={href}
           key={key}
-          color={textColor}
-          display="none"
-          variant="caption"
-          fontWeight="bold"
-          textTransform="uppercase"
-          pl={3}
-          mt={2}
-          mb={1}
-          ml={1}
+          target="_blank"
+          rel="noreferrer"
+          sx={{ textDecoration: "none" }}
         >
-          {title}
-        </MDTypography>
+          <ListItem onClick={handleClick}>
+            <SidenavCollapse
+              name={name}
+              icon={icon}
+              active={key === collapseName}
+              noCollapse={noCollapse}
+            />
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <MDTypography button className={classes.nested}>
+                <ListItemText primary="Sub Item 1" />
+              </MDTypography>
+            </List>
+          </Collapse>
+        </List>
       );
     }
 

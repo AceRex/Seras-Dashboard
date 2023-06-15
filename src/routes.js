@@ -38,7 +38,7 @@ const routes = [
     component: <Application />,
   },
   {
-    type: "collapse",
+    type: "nested",
     name: "Evaluation",
     key: "evaluation",
     icon: <Icon fontSize="small">Evaluation</Icon>,
