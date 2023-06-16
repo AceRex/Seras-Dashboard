@@ -41,7 +41,7 @@ const routes = [
     type: "nested",
     name: "Evaluation",
     key: "evaluation",
-    icon: <Icon fontSize="small">evaluation</Icon>,
+    icon: <Icon fontSize="small">Evaluation</Icon>,
     route: "/notifications",
     component: <Evaluation />,
     children: [
