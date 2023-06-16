@@ -50,12 +50,16 @@ const routes = [
     ],
   },
   {
-    type: "collapse",
+    type: "nested",
     name: "Website",
     key: "Website",
     icon: <Icon fontSize="small">Website</Icon>,
     route: "/website",
     component: <Website />,
+    children: [
+      { name: "dir", key: "dir", title: "dir", href: "#" },
+      { name: "dir", key: "2", title: "something", href: "#" },
+    ],
   },
   {
     type: "d-none",
