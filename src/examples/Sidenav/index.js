@@ -178,18 +178,16 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List button component="div" disablePadding>
                 {children.map(({ title, href }, index) => (
-                  <MDTypography
+                  <SidenavCollapse
                     key={index}
+                    name={title}
+                    nested
+                    href={href}
                     button
-                    style={{
-                      color: "white",
-                      fontSize: "14px",
-                      margin: "1rem",
-                    }}
                     className={classes.nested}
-                  >
-                    {title}
-                  </MDTypography>
+                    active={key === collapseName}
+                    noCollapse={noCollapse}
+                  />
                 ))}
               </List>
               ;
