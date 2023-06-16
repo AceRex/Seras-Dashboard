@@ -59,8 +59,18 @@ const routes = [
     route: "/website",
     component: <Website />,
     children: [
-      { name: "dir", key: "dir", title: "dir", href: "#" },
-      { name: "dir", key: "2", title: "something", href: "#" },
+      { name: "branding", key: "branding", title: "Branding", href: "#" },
+      { name: "webpage", key: "webpage", title: "Webpage", href: "#" },
+      { name: "embedcode", key: "embedcode", title: "Embed code", href: "#" },
+      { name: "applicantPortal", key: "applicantPortal", title: "Applicant Portal", href: "#" },
+      { name: "judgingPortal", key: "judgingPortal", title: "Judging Portal", href: "#" },
+      {
+        name: "publicVotingPortal",
+        key: "publicVotingPortal",
+        title: "publicVotingPortal",
+        href: "#",
+      },
+      { name: "applicationPage", key: "applicationPage", title: "applicationPage", href: "#" },
     ],
   },
   {
