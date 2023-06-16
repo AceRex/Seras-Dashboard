@@ -80,113 +80,117 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   }));
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
-  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
-    let returnValue;
+  const renderRoutes = routes.map(
+    ({ type, name, icon, children, title, noCollapse, key, href, route }) => {
+      let returnValue;
 
-    const classes = useStyles();
-    const [open, setOpen] = useState(false);
+      const classes = useStyles();
+      const [open, setOpen] = useState(false);
+      const handleClick = () => {
+        setOpen(!open);
+      };
 
-    const handleClick = () => {
-      setOpen(!open);
-    };
-
-    if (type === "collapse") {
-      returnValue = href ? (
-        <Link
-          href={href}
-          key={key}
-          target="_blank"
-          rel="noreferrer"
-          sx={{ textDecoration: "none" }}
-        >
-          <SidenavCollapse
-            name={name}
-            icon={icon}
-            active={key === collapseName}
-            noCollapse={noCollapse}
-          />
-        </Link>
-      ) : (
-        <NavLink key={key} to={route}>
-          <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
-        </NavLink>
-      );
-    } else if (type === "title") {
-      returnValue = (
-        <MDTypography
-          key={key}
-          color={textColor}
-          display="block"
-          variant="caption"
-          fontWeight="bold"
-          textTransform="uppercase"
-          pl={3}
-          mt={2}
-          mb={1}
-          ml={1}
-        >
-          {title}
-        </MDTypography>
-      );
-    } else if (type === "divider") {
-      returnValue = (
-        <Divider
-          key={key}
-          light={
-            (!darkMode && !whiteSidenav && !transparentSidenav) ||
-            (darkMode && !transparentSidenav && whiteSidenav)
-          }
-        />
-      );
-    } else if (type === "d-none") {
-      returnValue = (
-        <MDTypography
-          key={key}
-          color={textColor}
-          display="none"
-          variant="caption"
-          fontWeight="bold"
-          textTransform="uppercase"
-          pl={3}
-          mt={2}
-          mb={1}
-          ml={1}
-        >
-          {title}
-        </MDTypography>
-      );
-    } else if (type === "nested") {
-      returnValue = (
-        <List
-          href={href}
-          key={key}
-          target="_blank"
-          rel="noreferrer"
-          sx={{ textDecoration: "none" }}
-        >
-          <MDBox display="flex" style={{ alignItems: "center" }} onClick={handleClick}>
+      if (type === "collapse") {
+        returnValue = href ? (
+          <Link
+            href={href}
+            key={key}
+            target="_blank"
+            rel="noreferrer"
+            sx={{ textDecoration: "none" }}
+          >
             <SidenavCollapse
               name={name}
-              nested
               icon={icon}
               active={key === collapseName}
-              rightIcon={open ? "keyboard_arrow_up" : "keyboard_arrow_down"}
               noCollapse={noCollapse}
             />
-          </MDBox>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List button component="div" disablePadding>
-              <MDTypography button className={classes.nested}>
-                <ListItemText primary="Sub Item 1" />
-              </MDTypography>
-            </List>
-          </Collapse>
-        </List>
-      );
-    }
+          </Link>
+        ) : (
+          <NavLink key={key} to={route}>
+            <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
+          </NavLink>
+        );
+      } else if (type === "title") {
+        returnValue = (
+          <MDTypography
+            key={key}
+            color={textColor}
+            display="block"
+            variant="caption"
+            fontWeight="bold"
+            textTransform="uppercase"
+            pl={3}
+            mt={2}
+            mb={1}
+            ml={1}
+          >
+            {title}
+          </MDTypography>
+        );
+      } else if (type === "divider") {
+        returnValue = (
+          <Divider
+            key={key}
+            light={
+              (!darkMode && !whiteSidenav && !transparentSidenav) ||
+              (darkMode && !transparentSidenav && whiteSidenav)
+            }
+          />
+        );
+      } else if (type === "d-none") {
+        returnValue = (
+          <MDTypography
+            key={key}
+            color={textColor}
+            display="none"
+            variant="caption"
+            fontWeight="bold"
+            textTransform="uppercase"
+            pl={3}
+            mt={2}
+            mb={1}
+            ml={1}
+          >
+            {title}
+          </MDTypography>
+        );
+      } else if (type === "nested") {
+        returnValue = (
+          <List
+            href={href}
+            key={key}
+            target="_blank"
+            rel="noreferrer"
+            sx={{ textDecoration: "none" }}
+          >
+            <MDBox display="flex" style={{ alignItems: "center" }} onClick={handleClick}>
+              <SidenavCollapse
+                name={name}
+                nested
+                icon={icon}
+                active={key === collapseName}
+                rightIcon={open ? "keyboard_arrow_up" : "keyboard_arrow_down"}
+                noCollapse={noCollapse}
+              />
+            </MDBox>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <List button component="div" disablePadding>
+                {children.map(({ title, href }) => {
+                  <MDTypography button className={classes.nested}>
+                    something
+                  </MDTypography>;
+                })}
+              </List>
+              ;
+            </Collapse>
+          </List>
+        );
+      }
 
-    return returnValue;
-  });
+      return returnValue;
+    }
+  );
 
   return (
     <SidenavRoot
@@ -256,6 +260,7 @@ Sidenav.propTypes = {
   brand: PropTypes.string,
   brandName: PropTypes.string.isRequired,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.array,
 };
 
 export default Sidenav;

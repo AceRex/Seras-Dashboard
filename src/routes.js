@@ -41,9 +41,13 @@ const routes = [
     type: "nested",
     name: "Evaluation",
     key: "evaluation",
-    icon: <Icon fontSize="small">Evaluation</Icon>,
+    icon: <Icon fontSize="small">evaluation</Icon>,
     route: "/notifications",
     component: <Evaluation />,
+    children: [
+      { name: "something", key: "something", title: "something", href: "#" },
+      { name: "something", key: "2", title: "something", href: "#" },
+    ],
   },
   {
     type: "collapse",
