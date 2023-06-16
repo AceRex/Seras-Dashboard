@@ -86,7 +86,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
       const classes = useStyles();
       const [open, setOpen] = useState(false);
-      console.log({ children });
       const handleClick = () => {
         setOpen(!open);
       };
@@ -177,17 +176,19 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             </MDBox>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List button component="div" disablePadding>
-                {children.map(({ title, href }, index) => (
-                  <SidenavCollapse
-                    key={index}
-                    name={title}
-                    nested
-                    href={href}
-                    button
-                    className={classes.nested}
-                    active={key === collapseName}
-                    noCollapse={noCollapse}
-                  />
+                {children.map(({ title, route }, index) => (
+                  <NavLink key={key} to={route}>
+                    <SidenavCollapse
+                      key={index}
+                      name={title}
+                      nested
+                      button
+                      style={{ paddingLeft: "0px" }}
+                      className={classes.nested}
+                      active={key === collapseName}
+                      noCollapse={noCollapse}
+                    />
+                  </NavLink>
                 ))}
               </List>
               ;
