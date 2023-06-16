@@ -86,6 +86,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
       const classes = useStyles();
       const [open, setOpen] = useState(false);
+      console.log({ children });
       const handleClick = () => {
         setOpen(!open);
       };
@@ -176,11 +177,11 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             </MDBox>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List button component="div" disablePadding>
-                {children.map(({ title, href }) => {
-                  <MDTypography button className={classes.nested}>
-                    something
-                  </MDTypography>;
-                })}
+                {children.map(({ title, href }, index) => (
+                  <MDTypography key={index} button className={classes.nested}>
+                    {title}
+                  </MDTypography>
+                ))}
               </List>
               ;
             </Collapse>

@@ -45,8 +45,10 @@ const routes = [
     route: "/notifications",
     component: <Evaluation />,
     children: [
-      { name: "something", key: "something", title: "something", href: "#" },
-      { name: "something", key: "2", title: "something", href: "#" },
+      { name: "round", key: "round", title: "Round", href: "#" },
+      { name: "judges", key: "judges", title: "Judges", href: "#" },
+      { name: "votes", key: "votes", title: "Votes", href: "#" },
+      { name: "Results", key: "Results", title: "Results", href: "#" },
     ],
   },
   {
