@@ -164,16 +164,18 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           rel="noreferrer"
           sx={{ textDecoration: "none" }}
         >
-          <ListItem onClick={handleClick}>
+          <MDBox display="flex" style={{ alignItems: "center" }} onClick={handleClick}>
             <SidenavCollapse
               name={name}
+              nested
               icon={icon}
               active={key === collapseName}
+              rightIcon={open ? "keyboard_arrow_up" : "keyboard_arrow_down"}
               noCollapse={noCollapse}
             />
-          </ListItem>
+          </MDBox>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List button component="div" disablePadding>
               <MDTypography button className={classes.nested}>
                 <ListItemText primary="Sub Item 1" />
               </MDTypography>

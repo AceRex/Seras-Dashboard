@@ -21,7 +21,7 @@ import {
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 
-function SidenavCollapse({ icon, name, active, ...rest }) {
+function SidenavCollapse({ icon, nested, rightIcon, name, active, ...rest }) {
   const [controller] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
 
@@ -62,6 +62,19 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
             })
           }
         />
+        {nested ? (
+          <ListItemIcon
+            sx={(theme) =>
+              collapseIconBox(theme, { transparentSidenav, whiteSidenav, darkMode, active })
+            }
+          >
+            <Icon fontSize="small" style={{ color: "white" }}>
+              {rightIcon}
+            </Icon>
+          </ListItemIcon>
+        ) : (
+          <ListItemIcon style={{ display: "none" }}></ListItemIcon>
+        )}
       </MDBox>
     </ListItem>
   );
@@ -77,6 +90,8 @@ SidenavCollapse.propTypes = {
   icon: PropTypes.node.isRequired,
   name: PropTypes.string.isRequired,
   active: PropTypes.bool,
+  nested: PropTypes.bool,
+  rightIcon: PropTypes.string,
 };
 
 export default SidenavCollapse;
