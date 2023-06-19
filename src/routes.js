@@ -11,6 +11,10 @@ import Settings from "layouts/settings";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import Rounds from "layouts/evaluation/round";
+import Judges from "layouts/evaluation/judges";
+import Results from "layouts/evaluation/results";
+import Votes from "layouts/evaluation/votes";
 
 const routes = [
   {
@@ -42,13 +46,12 @@ const routes = [
     name: "Evaluation",
     key: "evaluation",
     icon: <Icon fontSize="small">query_stats</Icon>,
-    route: "/notifications",
-    component: <Evaluation />,
+    route: "/evaluation",
     children: [
-      { key: "round", title: "Round", href: "#" },
-      { key: "judges", title: "Judges", href: "#" },
-      { key: "votes", title: "Votes", href: "#" },
-      { key: "Results", title: "Results", href: "#" },
+      { key: "round", title: "Round", route: "/rounds" },
+      { key: "judges", title: "Judges", route: "/judges" },
+      { key: "votes", title: "Votes", route: "/votes" },
+      { key: "Results", title: "Results", route: "/results" },
     ],
   },
   {
@@ -56,10 +59,8 @@ const routes = [
     name: "Website",
     key: "Website",
     icon: <Icon fontSize="small">public</Icon>,
-    // route: "/website",
-    // component: <Website />,
     children: [
-      { key: "branding", title: "Branding", route: "/", component: <Website /> },
+      { key: "branding", title: "Branding", route: "/branding" },
       { key: "webpage", title: "Webpage", route: "#" },
       { key: "embedcode", title: "Embed code", route: "#" },
       { key: "applicantPortal", title: "Applicant Portal", route: "#" },
@@ -118,6 +119,38 @@ const routes = [
       { key: "promoCodes", title: "Promo Codes", route: "#" },
       { key: "specialOffers", title: "Special Offers", route: "#" },
     ],
+  },
+  {
+    type: "d-none",
+    name: "Round",
+    key: "rounds",
+    display: "none",
+    route: "/rounds",
+    component: <Rounds />,
+  },
+  {
+    type: "d-none",
+    name: "Judges",
+    key: "judges",
+    display: "none",
+    route: "/judges",
+    component: <Judges />,
+  },
+  {
+    type: "d-none",
+    name: "Results",
+    key: "results",
+    display: "none",
+    route: "/results",
+    component: <Results />,
+  },
+  {
+    type: "d-none",
+    name: "Votes",
+    key: "votes",
+    display: "none",
+    route: "/votes",
+    component: <Votes />,
   },
 ];
 
