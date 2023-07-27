@@ -48,7 +48,7 @@ const routes = [
     icon: <Icon fontSize="small">query_stats</Icon>,
     route: "/evaluation",
     children: [
-      { key: "round", title: "Round", route: "/rounds" },
+      // { key: "round", title: "Round", route: "/rounds" },
       { key: "judges", title: "Judges", route: "/judges" },
       { key: "votes", title: "Votes", route: "/votes" },
       { key: "Results", title: "Results", route: "/results" },

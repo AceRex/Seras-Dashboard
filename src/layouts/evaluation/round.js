@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import MDBox from "components/MDBox";
+import { Icon } from "@mui/material";
 
 // fake data generator
 const getItems = (count) =>
@@ -23,19 +25,19 @@ const grid = 3;
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
   padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-  background: isDragging ? "lightgreen" : "grey",
+  margin: `10px 0 ${grid}px 0`,
+  background: isDragging ? "white" : "white",
+  boxShadow: "10px 10px 8px #dadada",
   ...draggableStyle,
 });
 
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
+const getListStyle = () => ({
   padding: grid,
-  width: 250,
+  width: "100%",
 });
 
 const Drag = () => {
-  const [items, setItems] = useState(getItems(10));
+  const [items, setItems] = useState(getItems(2));
 
   const onDragEnd = (result) => {
     if (!result.destination) {
@@ -53,7 +55,9 @@ const Drag = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
-            <div
+            // eslint-disable-next-line
+            <MDBox
+              // eslint-disable-next-line
               {...provided.droppableProps}
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
@@ -61,19 +65,26 @@ const Drag = () => {
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
-                    <div
+                    <MDBox
+                      display="flex"
+                      alignItems="center"
+                      fontSize="15px"
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                     >
                       {item.content}
-                    </div>
+                      {item.content}
+                      {item.content}
+                      <Icon fontSize="small">edit</Icon>
+                      <Icon fontSize="small">delete</Icon>
+                    </MDBox>
                   )}
                 </Draggable>
               ))}
               {provided.placeholder}
-            </div>
+            </MDBox>
           )}
         </Droppable>
       </DragDropContext>

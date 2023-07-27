@@ -1,21 +1,68 @@
-// @mui material components
 import Grid from "@mui/material/Grid";
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-
-// Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { columns, rows } from "./data";
 import MDButton from "components/MDButton";
-import { Card, Icon } from "@mui/material";
+import { Card, Checkbox, Icon, IconButton } from "@mui/material";
 import DataTable from "examples/Tables/DataTable";
 import MDInput from "components/MDInput";
 import MultipleSelect from "components/MultiSelect";
 import { statues, categories, rounds, tags } from "./data";
+import MDBadge from "components/MDBadge";
+import { useMaterialUIController } from "context";
+import { DateFormat } from "components/DateFormat";
 
 function Application() {
+  const [controller, dispatch] = useMaterialUIController();
+
+  const { user, entries } = controller;
+
+  const columns = [
+    { Header: " ", accessor: "select", width: "10%", align: "center" },
+    { Header: "ID", accessor: "id", width: "10%", align: "center" },
+    { Header: "Last edited", accessor: "last_edited", width: "10%", align: "center" },
+    { Header: "Registrant", accessor: "registrant", width: "20%", align: "center" },
+    { Header: "Name", accessor: "name", width: "20%", align: "center" },
+    { Header: "Category", accessor: "category", width: "20%", align: "center" },
+    { Header: "Status", accessor: "status", width: "5%", align: "center" },
+    { Header: "Result", accessor: "result", width: "5%", align: "center" },
+    { Header: "Rounds", accessor: "rounds", width: "5%", align: "center" },
+    { Header: "Tags", accessor: "tags", width: "1%", align: "center" },
+    { Header: "Action", accessor: "action", width: "1%", align: "center" },
+  ];
+  const allAwardEntries = entries.flatMap((awardentry) =>
+    awardentry.AwardEntry.map((award) => ({
+      select: <Checkbox />,
+      id: awardentry._id,
+      last_edited: DateFormat(new Date(awardentry.updatedAt)),
+      registrant: awardentry.NameOfCEOMD,
+      name: awardentry.NameOfBusinessOrganization,
+      category: award.awardCategory,
+      status: <MDBadge badgeContent="not paid" color="warning" />,
+      result: "77",
+      rounds: "4",
+      tags: "something",
+      action: (
+        <IconButton
+          size="small"
+          centerRipple
+          color="inherit"
+          // sx={navbarMobileMenu}
+          // onClick={handleMiniSidenav}
+        >
+          <Icon
+            // sx={iconsStyle}
+            fontSize="small"
+          >
+            more_vert
+            {/* {miniSidenav ? "menu_open" : "menu"} */}
+          </Icon>
+        </IconButton>
+      ),
+    }))
+  );
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -65,7 +112,7 @@ function Application() {
             </MDBox>
             <MDBox pt={3}>
               <DataTable
-                table={{ columns, rows }}
+                table={{ columns, rows: allAwardEntries }}
                 isSorted={false}
                 entriesPerPage={false}
                 showTotalEntries={false}

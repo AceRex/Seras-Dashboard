@@ -1,30 +1,29 @@
-// @mui material components
 import Grid from "@mui/material/Grid";
-
-// Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import ListCard from "components/ListCard";
-
-const Registration = [
-  { itemTitle: "Total Registration", item: 5, link: "/registration" },
-  { itemTitle: "Total Amount", item: 1900, link: "#" },
-  { itemTitle: "Due Amount", item: 1900, link: "#" },
-  { itemTitle: "Paid Amount", item: 0, link: "#" },
-];
-
-const Applications = [
-  { itemTitle: "Total Applications", item: 20, link: "/application" },
-  { itemTitle: "Draft", item: 20, link: "#" },
-  { itemTitle: "Submitted", item: 0, link: "#" },
-  { itemTitle: "Approved", item: 0, link: "#" },
-  { itemTitle: "Rejected", item: 0, link: "#" },
-  { itemTitle: "Judging", item: 0, link: "#" },
-  { itemTitle: "Publice Voting", item: 0, link: "#" },
-];
+import { useMaterialUIController } from "context";
 
 function Dashboard() {
+  const [controller, dispatch] = useMaterialUIController();
+  const { user, entries, application } = controller;
+  const Registration = [
+    { itemTitle: "Total Registration", item: entries.length, link: "/registration" },
+    { itemTitle: "Total Amount", item: 0, link: "#" },
+    { itemTitle: "Due Amount", item: 0, link: "#" },
+    { itemTitle: "Paid Amount", item: 0, link: "#" },
+  ];
+
+  const Applications = [
+    { itemTitle: "Total Applications", item: application.length, link: "/application" },
+    { itemTitle: "Draft", item: 0, link: "#" },
+    { itemTitle: "Submitted", item: 0, link: "#" },
+    { itemTitle: "Approved", item: 0, link: "#" },
+    { itemTitle: "Rejected", item: 0, link: "#" },
+    { itemTitle: "Judging", item: 0, link: "#" },
+    { itemTitle: "Publice Voting", item: 0, link: "#" },
+  ];
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -64,10 +63,10 @@ function Dashboard() {
       </Grid>
       <Grid container spacing={1} style={{ marginTop: "2rem" }}>
         <Grid item xs={12} md={6}>
-          <ListCard title="Registration" bigTitle="5" items={Registration} />
+          <ListCard title="Registration" bigTitle={entries.length} items={Registration} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <ListCard title="Applications" bigTitle="20" items={Applications} />
+          <ListCard title="Applications" bigTitle={application.length} items={Applications} />
         </Grid>
       </Grid>
     </DashboardLayout>
