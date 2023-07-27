@@ -4,19 +4,16 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
-import axios from "axios";
 import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
-import { CacheProvider } from "@emotion/react";
 import routes from "routes";
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
-import { EntryContext } from "UseContext";
+import MDAlert from "components/MDAlert";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
-  const [entries, setEntries] = useState();
   const {
     miniSidenav,
     direction,
@@ -61,58 +58,26 @@ export default function App() {
       return null;
     });
 
-  const ProviderEntry = useMemo(() => ({
-    entries,
-    setEntries,
-  }));
-  return direction === "rtl" ? (
-    <EntryContext.Provider value={ProviderEntry}>
-      <CacheProvider value={rtlCache}>
-        <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-          <CssBaseline />
-          {layout === "dashboard" && (
-            <>
-              <Sidenav
-                color={sidenavColor}
-                brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                brandName="Seras Award 2023"
-                routes={routes}
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-              />
-              <Configurator />
-            </>
-          )}
-          {layout === "vr" && <Configurator />}
-          <Routes>
-            {getRoutes(routes)}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-          </Routes>
-        </ThemeProvider>
-      </CacheProvider>
-    </EntryContext.Provider>
-  ) : (
-    <EntryContext.Provider value={ProviderEntry}>
-      <ThemeProvider theme={darkMode ? themeDark : theme}>
-        <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
-        </Routes>
-      </ThemeProvider>
-    </EntryContext.Provider>
+  return (
+    <ThemeProvider theme={darkMode ? themeDark : theme}>
+      <CssBaseline />
+      {layout === "dashboard" && (
+        <>
+          <Sidenav
+            color={sidenavColor}
+            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+            routes={routes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Configurator />
+        </>
+      )}
+      {layout === "vr" && <Configurator />}
+      <Routes>
+        {getRoutes(routes)}
+        <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+      </Routes>
+    </ThemeProvider>
   );
 }

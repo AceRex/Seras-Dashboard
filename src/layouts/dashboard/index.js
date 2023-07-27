@@ -4,6 +4,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import ListCard from "components/ListCard";
 import { useMaterialUIController } from "context";
+import MDAlert from "components/MDAlert";
 
 function Dashboard() {
   const [controller, dispatch] = useMaterialUIController();

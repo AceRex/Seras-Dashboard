@@ -11,12 +11,16 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg2.png";
 import { useMaterialUIController, setUser, setEntries, setApplication } from "context";
 import axios from "axios";
+import Icon from "@mui/material/Icon";
 
 function Basic() {
   const [userLogin, setUserLogin] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [controller, dispatch] = useMaterialUIController();
+  const [MSG, setMSG] = useState(false);
+  const [errorMSG, setErrorMSG] = useState(" ");
+  const [errorMSGColor, setErrorMSGColor] = useState(" ");
   const { user, entries } = controller;
   const navigate = useNavigate();
   const UserExist = () => {
@@ -28,6 +32,9 @@ function Basic() {
         if (userLogin === User && userPassword === Password) {
           setEntries(dispatch, response.data);
           setUser(dispatch, true);
+          setErrorMSGColor("success");
+          setErrorMSG("Login Successful");
+          setMSG(true);
           const allAwardEntries = [];
           response.data.forEach((user) => {
             if (user.hasOwnProperty("AwardEntry") && Array.isArray(user.AwardEntry)) {
@@ -36,9 +43,12 @@ function Basic() {
           });
           setApplication(dispatch, allAwardEntries);
           localStorage.setItem("user", JSON.stringify(user));
-          setTimeout(() => navigate("/dashboard"), 2000);
+          setTimeout(() => navigate("/dashboard"), 3000);
         } else {
-          console.log("User Not Found");
+          setMSG(true);
+          setErrorMSGColor("error");
+          setErrorMSG("User Not Found");
+          setTimeout(() => navigate("0"), 1000);
         }
       })
       .catch(function (error) {
@@ -89,6 +99,26 @@ function Basic() {
           </MDBox>
         </MDBox>
       </Card>
+      <MDAlert
+        color={errorMSGColor}
+        style={
+          MSG === false
+            ? { display: "none" }
+            : { position: "absolute", top: 0, right: 0, fontSize: "15px" }
+        }
+        dismissible
+      >
+        {errorMSGColor === "success" ? (
+          <Icon fontSize="small" style={{ marginRight: 10 }}>
+            check
+          </Icon>
+        ) : (
+          <Icon fontSize="small" style={{ marginRight: 10 }}>
+            error
+          </Icon>
+        )}
+        {errorMSG}
+      </MDAlert>
     </BasicLayout>
   );
 }
