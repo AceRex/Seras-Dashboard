@@ -42,7 +42,7 @@ function Basic() {
             }
           });
           setApplication(dispatch, allAwardEntries);
-          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("user", JSON.stringify(true));
           setTimeout(() => navigate("/dashboard"), 3000);
         } else {
           setMSG(true);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Sidenav from "examples/Sidenav";
@@ -13,18 +13,31 @@ import brandDark from "assets/images/logo-ct-dark.png";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
+  const [validateUser, setValidateUser] = useState(false);
   const {
     miniSidenav,
     direction,
     layout,
-    openConfigurator,
     sidenavColor,
     transparentSidenav,
     whiteSidenav,
     darkMode,
+    user,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userCheck = localStorage.getItem("user");
+    if (user === true && userCheck === true) {
+      setValidateUser(true);
+    } else {
+      setValidateUser(false);
+      navigate("/authentication/sign-in");
+    }
+  }, []);
+
+  console.log(validateUser);
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
