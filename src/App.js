@@ -10,7 +10,6 @@ import routes from "routes";
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
-import MDAlert from "components/MDAlert";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
