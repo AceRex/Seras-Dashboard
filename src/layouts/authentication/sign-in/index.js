@@ -104,7 +104,7 @@ function Basic() {
         style={
           MSG === false
             ? { display: "none" }
-            : { position: "absolute", top: 0, right: 0, fontSize: "15px" }
+            : { position: "absolute", bottom: 0, right: 0, fontSize: "15px" }
         }
         dismissible
       >
