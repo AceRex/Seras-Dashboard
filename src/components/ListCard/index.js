@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 ListCard.propTypes = {
   title: PropTypes.string.isRequired,
@@ -17,6 +18,10 @@ ListCard.propTypes = {
 };
 
 function ListCard({ title, bigTitle, items }) {
+  const navigate = useNavigate();
+  const handleClick = (link) => {
+    navigate(link);
+  };
   return (
     <Card>
       <MDBox pt={3} px={2}>
@@ -43,12 +48,11 @@ function ListCard({ title, bigTitle, items }) {
               return (
                 <>
                   <MDBox
-                    component="a"
-                    href={item.link}
+                    onClick={() => navigate(item.link)}
                     rel="noreferrer"
                     display="flex"
                     pt={0}
-                    style={{ justifyContent: "space-between" }}
+                    style={{ justifyContent: "space-between", cursor: "pointer" }}
                   >
                     <MDTypography pl={2} variant="subtitle2" fontWeight="normal">
                       {item.itemTitle}
@@ -63,8 +67,6 @@ function ListCard({ title, bigTitle, items }) {
             })
           ) : (
             <MDBox
-              component="a"
-              href="/"
               target="_blank"
               rel="noreferrer"
               display="flex"
