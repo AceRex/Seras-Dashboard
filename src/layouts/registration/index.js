@@ -13,6 +13,11 @@ function Registration() {
   const [controller, dispatch] = useMaterialUIController();
   const { user, entries } = controller;
 
+  const handleRowClick = (userID) => {
+    console.log(userID);
+    // history.push(`/user/${userID}`);
+  };
+
   const columns = [
     { Header: "ID", accessor: "id", width: "10%", align: "center" },
     { Header: "Date", accessor: "date", width: "10%", align: "center" },
@@ -25,7 +30,17 @@ function Registration() {
     { Header: "Action", accessor: "action", width: "1%", align: "center" },
   ];
   const AllRegistration = entries.map((entry) => ({
-    id: entry._id,
+    id: (
+      <a
+        href={`/registration/${entry._id}`}
+        onClick={(e) => {
+          e.preventDefault();
+          handleRowClick(entry._id);
+        }}
+      >
+        {entry._id}
+      </a>
+    ),
     date: DateFormat(new Date(entry.updatedAt)),
     name: entry.NameOfCEOMD,
     company: entry.NameOfBusinessOrganization,

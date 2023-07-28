@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "private": true,
   "author": "Pel Managers",
-  "license": "See license in https://www.creative-tim.com/license",
+  "license": " ",
   "description": "Seras Backend developed by Pel Manager",
   "dependencies": {
     "@emotion/cache": "11.10.8",

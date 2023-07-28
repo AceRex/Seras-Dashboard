@@ -8,6 +8,7 @@ import Website from "layouts/website";
 import Emails from "layouts/emails";
 import Data from "layouts/data";
 import Settings from "layouts/settings";
+import UserEntries from "layouts/registration/userEntries";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -32,6 +33,14 @@ const routes = [
     icon: <Icon fontSize="small">home</Icon>,
     route: "/registration",
     component: <Registration />,
+  },
+  {
+    type: "d-none",
+    name: "User-details",
+    key: "user-details",
+    display: "none",
+    route: "/user/:userID",
+    component: <UserEntries />,
   },
   {
     type: "collapse",
