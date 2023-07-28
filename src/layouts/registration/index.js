@@ -8,14 +8,15 @@ import MDButton from "components/MDButton";
 import MDBadge from "components/MDBadge";
 import { useMaterialUIController } from "context";
 import { DateFormat } from "components/DateFormat";
+import { useNavigate } from "react-router-dom";
 
 function Registration() {
   const [controller, dispatch] = useMaterialUIController();
   const { user, entries } = controller;
+  const navigate = useNavigate();
 
   const handleRowClick = (userID) => {
-    console.log(userID);
-    // history.push(`/user/${userID}`);
+    navigate(`/user/${userID}`);
   };
 
   const columns = [
@@ -32,7 +33,7 @@ function Registration() {
   const AllRegistration = entries.map((entry) => ({
     id: (
       <a
-        href={`/registration/${entry._id}`}
+        href={`/user/${entry._id}`}
         onClick={(e) => {
           e.preventDefault();
           handleRowClick(entry._id);
