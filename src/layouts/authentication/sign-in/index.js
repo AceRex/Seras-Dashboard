@@ -27,7 +27,7 @@ function Basic() {
     const User = "admin";
     const Password = "admin";
     axios
-      .get("https://zpfh8p-7070.csb.app/organisation-registration")
+      .get("https://ill-colt-sundress.cyclic.app/organisation-registration")
       .then(function (response) {
         if (userLogin === User && userPassword === Password) {
           setEntries(dispatch, response.data);
