@@ -51,6 +51,14 @@ const routes = [
     component: <Application />,
   },
   {
+    type: "collapse",
+    name: "Add a Judge",
+    key: "add_a_judge",
+    icon: <Icon fontSize="small">hammer</Icon>,
+    route: "#",
+    // component: ,
+  },
+  {
     type: "nested",
     name: "Evaluation",
     key: "evaluation",

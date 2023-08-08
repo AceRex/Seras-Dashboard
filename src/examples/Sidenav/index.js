@@ -249,7 +249,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             color={sidenavColor}
             fullWidth
           >
-            Create a Judge
+            Create an Admin
           </MDButton>
         </MDBox>
       ) : adminrole === "Admin" ? (

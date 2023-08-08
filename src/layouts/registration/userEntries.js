@@ -12,10 +12,9 @@ function userEntries() {
   const [orgData, setOrgData] = useState({});
   useEffect(() => {
     axios
-      .get(`https://zpfh8p-7070.csb.app/organisation-registration/${getUser.userID}`)
+      .get(`https://ill-colt-sundress.cyclic.app/organisation-registration/${getUser.userID}`)
       .then(function (response) {
         setOrgData(response.data);
-        console.log(response.data.AwardEntry);
       });
   }, [getUser]);
 
@@ -47,12 +46,20 @@ function userEntries() {
                 <p style={Textstyle}>{orgData.EmailOfBusinessOrganization}</p>
                 <p style={Labelstyle}>Company</p>
                 <p style={Textstyle}>{orgData.NameOfBusinessOrganization}</p>
+                <p style={Labelstyle}>Address</p>
+                <p style={Textstyle}>{orgData.AddressOfBusinessOrganization}</p>
+                <p style={Labelstyle}>City</p>
+                <p style={Textstyle}>{orgData.City}</p>
+                <p style={Labelstyle}>State</p>
+                <p style={Textstyle}>{orgData.State}</p>
               </Card>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Card>
-                {" "}
-                <p style={Labelstyle}>payments</p>
+              <Card style={{ padding: "3rem" }}>
+                <p style={Labelstyle}>Payments</p>
+                <p style={Textstyle}>{orgData.PaymentStatus}</p>
+                <p style={Labelstyle}>Amount Due</p>
+                <p style={Textstyle}>{orgData.EmailOfBusinessOrganization}</p>
               </Card>
             </Grid>
           </Grid>
