@@ -3,12 +3,41 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import ListCard from "components/ListCard";
-import { useMaterialUIController } from "context";
-import MDAlert from "components/MDAlert";
+import { useMaterialUIController, setEntries, setApplication } from "context";
+import { useEffect } from "react";
+import axios from "axios";
 
 function Dashboard() {
   const [controller, dispatch] = useMaterialUIController();
-  const { user, entries, application } = controller;
+  const { entries, application } = controller;
+
+  useEffect(() => {
+    axios
+      .get("https://ill-colt-sundress.cyclic.app/organisation-registration")
+      .then(function (response) {
+        if (response) {
+          const allAwardEntries = [];
+          setEntries(dispatch, response.data);
+          response.data.forEach((user) => {
+            if (user.hasOwnProperty("AwardEntry") && Array.isArray(user.AwardEntry)) {
+              allAwardEntries.push(...user.AwardEntry);
+            }
+          });
+          setApplication(dispatch, allAwardEntries);
+          localStorage.setItem("user", JSON.stringify(true));
+        } else {
+          setMSG(true);
+          setErrorMSGColor("error");
+          setErrorMSG("User Not Found");
+          setTimeout(() => navigate("0"), 1000);
+        }
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   const Registration = [
     { itemTitle: "Total Registration", item: entries.length, link: "/registration" },
     { itemTitle: "Total Amount", item: 0, link: "#" },

@@ -9,47 +9,37 @@ import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg2.png";
-import { useMaterialUIController, setUser, setEntries, setApplication } from "context";
+import { useMaterialUIController, setUser, setAdminRole, setAdminName } from "context";
 import axios from "axios";
 import Icon from "@mui/material/Icon";
 
 function Basic() {
-  const [userLogin, setUserLogin] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [userLogin, setUserLogin] = useState();
+  const [userPassword, setUserPassword] = useState();
   const [rememberMe, setRememberMe] = useState(false);
   const [controller, dispatch] = useMaterialUIController();
   const [MSG, setMSG] = useState(false);
   const [errorMSG, setErrorMSG] = useState(" ");
   const [errorMSGColor, setErrorMSGColor] = useState(" ");
-  const { user, entries } = controller;
+  const { user, admin, entries } = controller;
   const navigate = useNavigate();
   const UserExist = () => {
-    const User = "admin";
-    const Password = "admin";
     axios
-      .get("https://ill-colt-sundress.cyclic.app/organisation-registration")
+      .post("https://ill-colt-sundress.cyclic.app/users/login", {
+        UserEmail: userLogin,
+        Password: userPassword,
+      })
       .then(function (response) {
-        if (userLogin === User && userPassword === Password) {
-          setEntries(dispatch, response.data);
-          setUser(dispatch, true);
-          setErrorMSGColor("success");
-          setErrorMSG("Login Successful");
-          setMSG(true);
-          const allAwardEntries = [];
-          response.data.forEach((user) => {
-            if (user.hasOwnProperty("AwardEntry") && Array.isArray(user.AwardEntry)) {
-              allAwardEntries.push(...user.AwardEntry);
-            }
-          });
-          setApplication(dispatch, allAwardEntries);
-          localStorage.setItem("user", JSON.stringify(true));
-          setTimeout(() => navigate("/dashboard"), 3000);
-        } else {
-          setMSG(true);
-          setErrorMSGColor("error");
-          setErrorMSG("User Not Found");
-          setTimeout(() => navigate("0"), 1000);
-        }
+        setAdminRole(dispatch, response.data.UserRole);
+        setAdminName(
+          dispatch,
+          `${response.data.LastName} ${response.data?.MiddleName} ${response.data.FirstName}`
+        );
+        setUser(dispatch, true);
+        setErrorMSGColor("success");
+        setErrorMSG("Login Successful");
+        setMSG(true);
+        setTimeout(() => navigate("/dashboard"), 3000);
       })
       .catch(function (error) {
         console.log(error);

@@ -40,6 +40,12 @@ function reducer(state, action) {
     case "APPLICATION": {
       return { ...state, application: action.value };
     }
+    case "ADMINNAME": {
+      return { ...state, adminname: action.value };
+    }
+    case "ADMINROLE": {
+      return { ...state, adminrole: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -56,6 +62,8 @@ function MaterialUIControllerProvider({ children }) {
     openConfigurator: false,
     layout: "dashboard",
     darkMode: false,
+    adminname: "",
+    adminrole: "",
     user: false,
     entries: [],
     application: [],
@@ -99,6 +107,8 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const setUser = (dispatch, value) => dispatch({ type: "USER", value });
 const setEntries = (dispatch, value) => dispatch({ type: "ENTRIES", value });
 const setApplication = (dispatch, value) => dispatch({ type: "APPLICATION", value });
+const setAdminName = (dispatch, value) => dispatch({ type: "ADMINNAME", value });
+const setAdminRole = (dispatch, value) => dispatch({ type: "ADMINROLE", value });
 
 export {
   MaterialUIControllerProvider,
@@ -115,4 +125,6 @@ export {
   setUser,
   setEntries,
   setApplication,
+  setAdminRole,
+  setAdminName,
 };

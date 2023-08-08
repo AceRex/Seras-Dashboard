@@ -37,7 +37,6 @@ export default function App() {
     }
   }, []);
 
-  console.log(validateUser);
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);

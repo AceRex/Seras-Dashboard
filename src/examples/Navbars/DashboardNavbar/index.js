@@ -42,7 +42,15 @@ import MDTypography from "components/MDTypography";
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
+  const {
+    miniSidenav,
+    transparentNavbar,
+    fixedNavbar,
+    openConfigurator,
+    darkMode,
+    adminname,
+    adminrole,
+  } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
 
@@ -110,7 +118,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
             <MDBox color={light ? "white" : "inherit"}>
               <Link to="/authentication/sign-in/basic">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
                   {/* preview User name */}
                   <MDTypography
                     variant="h6"
@@ -118,20 +125,26 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     fontWeight="medium"
                     textTransform="uppercase"
                   >
-                    Are Oluwasegun johnson
+                    {adminname}
                   </MDTypography>
                   {/* Preview user Role */}
                 </IconButton>
                 <MDTypography
                   display="block"
                   variant="overline"
-                  color="dark"
+                  color={
+                    adminrole === "Super Admin"
+                      ? "indigo"
+                      : adminrole === "Admin"
+                      ? "green"
+                      : "orange"
+                  }
                   textAlign="right"
                   textTransform="uppercase"
                   pr={1}
                   marginTop="-10px"
                 >
-                  Admin
+                  {adminrole}
                 </MDTypography>
               </Link>
               <IconButton

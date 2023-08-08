@@ -37,7 +37,7 @@ import { Collapse } from "@mui/material";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor, user } =
+  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor, adminrole } =
     controller;
   const location = useLocation();
   const collapseName = location.pathname.replace("/authentication/sign-in", "");
@@ -238,19 +238,37 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         }
       />
       <List>{renderRoutes}</List>
-      <MDBox p={2} mt="auto">
-        <MDButton
-          component="a"
-          href="#"
-          target="_blank"
-          rel="noreferrer"
-          variant="gradient"
-          color={sidenavColor}
-          fullWidth
-        >
-          Create a Judge
-        </MDButton>
-      </MDBox>
+      {adminrole === "Super Admin" ? (
+        <MDBox p={2} mt="auto">
+          <MDButton
+            component="a"
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+            variant="gradient"
+            color={sidenavColor}
+            fullWidth
+          >
+            Create a Judge
+          </MDButton>
+        </MDBox>
+      ) : adminrole === "Admin" ? (
+        <MDBox p={2} mt="auto">
+          <MDButton
+            component="a"
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+            variant="gradient"
+            color={sidenavColor}
+            fullWidth
+          >
+            Create a Judge
+          </MDButton>
+        </MDBox>
+      ) : (
+        " "
+      )}
     </SidenavRoot>
   );
 }
